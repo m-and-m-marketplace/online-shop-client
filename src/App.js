@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import ProductDetails from "./components/ProductDetails";
 import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
+import SignupPage from "./components/SignupPage";
+import LoginPage from "./components/LoginPage";
 
 const API_URL = "http://localhost:5006";
 
@@ -31,9 +33,14 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       <Routes>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductList products={products} />} />
-        <Route path="/products/:id" element={<ProductDetails products={products} />} />
+        <Route
+          path="/products/:id"
+          element={<ProductDetails products={products} />}
+        />
         {/* <Route path="/" element={<ProfilePage />}/> */}
       </Routes>
     </div>
