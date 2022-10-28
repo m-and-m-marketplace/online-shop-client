@@ -9,6 +9,8 @@ import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
 import SignupPage from "./components/SignupPage";
 import LoginPage from "./components/LoginPage";
+import CreateProduct from "./components/CreateProduct";
+import EditProduct from "./components/EditProduct";
 
 const API_URL = "http://localhost:5006";
 
@@ -36,7 +38,15 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route
+          path="/products/:id/edit"
+          element={<EditProduct fetchProductsCB={getAllProducts} />}
+        />
         <Route path="/products" element={<ProductList products={products} />} />
+        <Route
+          path="/products/create"
+          element={<CreateProduct fetchProductsCB={getAllProducts} />}
+        />
         <Route
           path="/products/:id"
           element={<ProductDetails products={products} />}
