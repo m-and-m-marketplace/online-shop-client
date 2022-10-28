@@ -1,4 +1,8 @@
 Footer
 Carousel(bonus)
-Signup, login, logout, User Account page
-order routes and components?
+
+
+weekend:
+-order routes and components
+-User Account page
+-route protection for admins
