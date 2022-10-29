@@ -2,7 +2,9 @@ Footer
 Carousel(bonus)
 
 
-weekend:
--order routes and components
+To Do:
+-route + component for shopping cart
+-order routes and components (create order from shopping cart)
 -User Account page
+-image upload react
 -route protection for admins
