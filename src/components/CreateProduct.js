@@ -13,6 +13,22 @@ function CreateProduct({ fetchProductsCB }) {
   const [rating, setRating] = useState(0);
 
   const navigate = useNavigate();
+  const storedToken = localStorage.getItem("authToken");
+
+  const handleFileUpload = (e) => {
+    const uploadData = new FormData();
+
+    uploadData.append("image_URL", e.target.files[0]);
+
+    axios
+      .post(`${API_URL}/api/products/upload-image`, uploadData, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setImage_URL(response.data.image_URL);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,8 +40,6 @@ function CreateProduct({ fetchProductsCB }) {
       specs,
       rating,
     };
-
-    const storedToken = localStorage.getItem("authToken");
 
     axios
       .post(`${API_URL}/api/products/create`, newProduct, {
@@ -69,9 +83,8 @@ function CreateProduct({ fetchProductsCB }) {
         <label>Image</label>
         <br />
         <input
-          type="text"
-          value={image_URL}
-          onChange={(e) => setImage_URL(e.target.value)}
+          type="file"
+          onChange={(e) => handleFileUpload(e)}
         />
         <br />
         <label>Specifications</label>
