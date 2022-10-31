@@ -3,8 +3,12 @@ Carousel(bonus)
 
 
 To Do:
--route + component for shopping cart
+component for shopping cart
 -order routes and components (create order from shopping cart)
 -User Account page
--image upload react
 -route protection for admins
+
+
+Views:
+-User Account: Shopping Cart?, Watchlist?
+-Create Product

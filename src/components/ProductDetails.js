@@ -32,7 +32,7 @@ const handleSubmitCart = (e) => {
     })
     .then((response) => {
       //fetchProductsCB();
-      navigate("/");
+      navigate("/account");
     })
     .catch((e) => console.log("error adding to shopping cart", e));
   // //clear form

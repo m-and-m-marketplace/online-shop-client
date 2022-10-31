@@ -11,6 +11,7 @@ import SignupPage from "./components/SignupPage";
 import LoginPage from "./components/LoginPage";
 import CreateProduct from "./components/CreateProduct";
 import EditProduct from "./components/EditProduct";
+import CheckOut from "./components/CheckOut";
 
 const API_URL = "http://localhost:5006";
 
@@ -51,7 +52,8 @@ function App() {
           path="/products/:id"
           element={<ProductDetails products={products} />}
         />
-        {/* <Route path="/" element={<ProfilePage />}/> */}
+        <Route path="/account" element={<ProfilePage />}/>
+        <Route path="/orders/checkout" element={<CheckOut />}/>
       </Routes>
     </div>
   );
