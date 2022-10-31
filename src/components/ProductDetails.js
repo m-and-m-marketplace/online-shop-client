@@ -11,8 +11,34 @@ function ProductDetails({ products }) {
 
   const navigate = useNavigate();
 
+  const storedToken = localStorage.getItem("authToken");
+
   const details = products.find((product) => product._id === id);
 
+//add to shopping cart
+const handleSubmitCart = (e) => {
+  e.preventDefault();
+  const newOrder = {
+    items: {
+      product: details,
+      amount,
+    },
+  };
+  
+
+  axios
+    .post(`${API_URL}/api/orders/shopping-cart`, newOrder, {
+      headers: { Authorization: `Bearer ${storedToken}` },
+    })
+    .then((response) => {
+      //fetchProductsCB();
+      navigate("/");
+    })
+    .catch((e) => console.log("error adding to shopping cart", e));
+  // //clear form
+};
+
+  //create order
   const handleSubmit = (e) => {
     e.preventDefault();
     const newOrder = {
@@ -21,7 +47,7 @@ function ProductDetails({ products }) {
         amount,
       },
     };
-    const storedToken = localStorage.getItem("authToken");
+    
 
     axios
       .post(`${API_URL}/api/orders/create`, newOrder, {
@@ -35,12 +61,12 @@ function ProductDetails({ products }) {
     // //clear form
   };
 
+  //add to watchlist
   const handleSubmitWatchlist = (e) => {
     e.preventDefault();
     const newProduct = {
       newItem: details,
     }
-    const storedToken = localStorage.getItem("authToken");
 
     axios
       .post(`${API_URL}/api/products/${id}/add`, newProduct, {
@@ -53,6 +79,8 @@ function ProductDetails({ products }) {
       .catch((e) => console.log("error adding to watchlist", e));
     // //clear form
   };
+
+
   return (
     <div>
       <img src={details.image_URL} alt={details.title} />
@@ -77,6 +105,10 @@ function ProductDetails({ products }) {
       <form onSubmit={handleSubmitWatchlist}>
         <input type="hidden" value={details} />
         <button type="submit">Add to watchlist</button>
+      </form>
+      <form onSubmit={handleSubmitCart}>
+        <input type="hidden" value={details} />
+        <button type="submit">Add to cart</button>
       </form>
     </div>
   );

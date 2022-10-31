@@ -85,6 +85,7 @@ function CreateProduct({ fetchProductsCB }) {
         <input
           type="file"
           onChange={(e) => handleFileUpload(e)}
+          required
         />
         <br />
         <label>Specifications</label>
