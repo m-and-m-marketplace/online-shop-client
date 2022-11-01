@@ -1,25 +1,21 @@
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-const API_URL = "http://localhost:5006";
 
 function ProfilePage() {
     const [user, setUser] = useState();
 
-    const navigate = useNavigate();
-
     const storedToken = localStorage.getItem("authToken");
 
     const getUser = () => {
-        const storedToken = localStorage.getItem("authToken");
+        
     
         axios
-          .get(`${API_URL}/api/account`, {
+          .get(`${process.env.REACT_APP_API_URL}/api/account`, {
             headers: { Authorization: `Bearer ${storedToken}` },
           })
           .then((response) => {
-            console.log(response.data.watchlist);
+           // console.log(response.data.watchlist);
             setUser(response.data)
         })
           .catch((error) => console.log(error));

@@ -13,8 +13,6 @@ import CreateProduct from "./components/CreateProduct";
 import EditProduct from "./components/EditProduct";
 import CheckOut from "./components/CheckOut";
 
-const API_URL = "http://localhost:5006";
-
 function App() {
   const [products, setProducts] = useState([]);
   const [admin, setAdmin] = useState();
@@ -22,7 +20,7 @@ function App() {
 
   const getAllProducts = () => {
     axios
-      .get(`${API_URL}/api/products`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/products`, {
         // headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => setProducts(response.data))
@@ -34,7 +32,7 @@ function App() {
 
   const getUser = () => {
     axios
-      .get(`${API_URL}/api/account`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/account`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {

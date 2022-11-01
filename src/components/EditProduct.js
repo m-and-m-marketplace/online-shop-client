@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-const API_URL = "http://localhost:5006";
 
 function EditProduct({ fetchProductsCB }) {
   const [title, setTitle] = useState("");
@@ -18,7 +17,7 @@ function EditProduct({ fetchProductsCB }) {
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
     axios
-      .get(`${API_URL}/api/products/${id}`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -39,10 +38,11 @@ function EditProduct({ fetchProductsCB }) {
 
     const storedToken = localStorage.getItem("authToken");
     axios
-      .put(`${API_URL}/api/products/${id}`, requestBody, {
+      .put(`${process.env.REACT_APP_API_URL}/api/products/${id}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
+        console.log(response);
         fetchProductsCB();
         navigate(`/products/${id}`);
       });
@@ -51,7 +51,7 @@ function EditProduct({ fetchProductsCB }) {
   const deleteProduct = () => {
     const storedToken = localStorage.getItem("authToken");
     axios
-      .delete(`${API_URL}/api/products/${id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {

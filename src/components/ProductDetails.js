@@ -3,8 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const API_URL = "http://localhost:5006";
-
 function ProductDetails({ products }) {
   const { id } = useParams();
   const [amount, setAmount] = useState(1);
@@ -27,7 +25,7 @@ function ProductDetails({ products }) {
       },
     };
     axios
-      .post(`${API_URL}/api/orders/shopping-cart`, newOrder, {
+      .post(`${process.env.REACT_APP_API_URL}/api/orders/shopping-cart`, newOrder, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -49,7 +47,7 @@ function ProductDetails({ products }) {
     };
 
     axios
-      .post(`${API_URL}/api/orders/create`, newOrder, {
+      .post(`${process.env.REACT_APP_API_URL}/api/orders/create`, newOrder, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -68,7 +66,7 @@ function ProductDetails({ products }) {
     };
 
     axios
-      .post(`${API_URL}/api/products/${id}/add`, newProduct, {
+      .post(`${process.env.REACT_APP_API_URL}/api/products/${id}/add`, newProduct, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -81,7 +79,7 @@ function ProductDetails({ products }) {
 
   const getUser = () => {
     axios
-      .get(`${API_URL}/api/account`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/account`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {

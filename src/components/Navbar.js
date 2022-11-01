@@ -1,9 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react"; // <== IMPORT
-import { AuthContext } from "../context/auth.context"; // <== IMPORT
-import axios from "axios";
+import { useContext } from "react"; 
+import { AuthContext } from "../context/auth.context"; 
 
-const API_URL = "http://localhost:5006";
 
 function Navbar({admin}) {
   // Subscribe to the AuthContext to gain access to
@@ -24,7 +22,7 @@ function Navbar({admin}) {
           </NavLink>
           
           {admin &&
-          <NavLink to="/products">
+          <NavLink to="/products/create">
             <button>Add Product</button>
           </NavLink>}
 

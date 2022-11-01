@@ -2,8 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5006";
-
 function CheckOut(){
     const [amount, setAmount] = useState();
     const [user, setUser] = useState();
@@ -14,7 +12,7 @@ function CheckOut(){
         
     
         axios
-          .get(`${API_URL}/api/account`, {
+          .get(`${process.env.REACT_APP_API_URL}/api/account`, {
             headers: { Authorization: `Bearer ${storedToken}` },
           })
           .then((response) => {
@@ -33,7 +31,7 @@ function CheckOut(){
     
         const storedToken = localStorage.getItem("authToken");
         axios
-          .put(`${API_URL}/api/orders/checkout`, requestBody, {
+          .put(`${process.env.REACT_APP_API_URL}/api/orders/checkout`, requestBody, {
             headers: { Authorization: `Bearer ${storedToken}` },
           })
           .then((response) => {

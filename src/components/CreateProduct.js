@@ -2,8 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5006";
-
 function CreateProduct({ fetchProductsCB }) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
@@ -21,7 +19,7 @@ function CreateProduct({ fetchProductsCB }) {
     uploadData.append("image_URL", e.target.files[0]);
 
     axios
-      .post(`${API_URL}/api/products/upload-image`, uploadData, {
+      .post(`${process.env.REACT_APP_API_URL}/api/products/upload-image`, uploadData, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -42,7 +40,7 @@ function CreateProduct({ fetchProductsCB }) {
     };
 
     axios
-      .post(`${API_URL}/api/products/create`, newProduct, {
+      .post(`${process.env.REACT_APP_API_URL}/api/products/create`, newProduct, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
