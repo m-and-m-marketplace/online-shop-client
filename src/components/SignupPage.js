@@ -11,6 +11,7 @@ function SignupPage(props) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
+  const [admin, setAdmin] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
@@ -19,11 +20,12 @@ function SignupPage(props) {
   const handlePassword = (e) => setPassword(e.target.value);
   const handleName = (e) => setName(e.target.value);
   const handleAddress = (e) => setAddress(e.target.value);
+  const handleAdmin = (e) => setAdmin(e.target.value);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
-    const requestBody = { email, password, name, address };
+    const requestBody = { email, password, name, address, admin };
 
     // Make an axios request to the API
     // If POST request is successful redirect to login page
@@ -65,6 +67,14 @@ function SignupPage(props) {
           value={address}
           onChange={handleAddress}
         />
+
+        {/* <label>Admin:</label>
+        <input
+          type="checkbox" 
+          name="admin"
+          value={true}
+          onChange={handleAdmin}
+        /> */}
 
         <button type="submit">Sign Up</button>
       </form>

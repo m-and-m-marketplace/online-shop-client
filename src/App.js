@@ -17,10 +17,10 @@ const API_URL = "http://localhost:5006";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [admin, setAdmin] = useState();
+  const storedToken = localStorage.getItem("authToken");
 
   const getAllProducts = () => {
-    const storedToken = localStorage.getItem("authToken");
-
     axios
       .get(`${API_URL}/api/products`, {
         // headers: { Authorization: `Bearer ${storedToken}` },
@@ -32,9 +32,28 @@ function App() {
     getAllProducts();
   }, []);
 
+  const getUser = () => {
+    axios
+      .get(`${API_URL}/api/account`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        if (response.data.admin === true) {
+          setAdmin(true);
+        } else {
+          setAdmin(false);
+        }
+        console.log(admin);
+      })
+      .catch((error) => console.log(error));
+  };
+  useEffect(() => {
+    getUser();
+  });
+
   return (
     <div className="App">
-      <Navbar></Navbar>
+      <Navbar admin={admin}></Navbar>
       <Routes>
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -46,11 +65,11 @@ function App() {
         <Route path="/products" element={<ProductList products={products} />} />
         <Route
           path="/products/create"
-          element={<CreateProduct fetchProductsCB={getAllProducts} />}
+          element={<CreateProduct fetchProductsCB={getAllProducts}  />}
         />
         <Route
           path="/products/:id"
-          element={<ProductDetails products={products} />}
+          element={<ProductDetails products={products} admin={admin}/>}
         />
         <Route path="/account" element={<ProfilePage />}/>
         <Route path="/orders/checkout" element={<CheckOut />}/>
