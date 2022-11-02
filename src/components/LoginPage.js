@@ -36,29 +36,67 @@ function LoginPage(props) {
   };
 
   return (
-    <div className="LoginPage">
-      <h1>Login</h1>
+    <div className="LoginPage text-center">
+      <main className="form-signin w-100 m-auto">
+        <form onSubmit={handleLoginSubmit}>
+          <img className="mb-4" src="../images/navbar-brand.png" alt="navbar-brand" width="220" height="57" />
+          <h1 className="h3 mb-3 fw-normal">Please Login</h1>
+          <div className="form-floating">
+            <input
+              required
+              type="email"
+              className="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+              name="email"
+              value={email}
+              onChange={handleEmail}
+            />
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div className="form-floating">
+            <input
+              required
+              type="password"
+              className="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={handlePassword}
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
+          <button className="w-100 btn btn-lg btn-primary" type="submit">
+          Login
+          </button>
 
-      <form onSubmit={handleLoginSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
+          {/* <label></label>
+          <input
+            // type="email"
+            // name="email"
+            value={email}
+            onChange={handleEmail}
+          /> */}
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+          {/* <label>Password:</label>
+          <input
+            // type="password"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+          /> */}
 
-        <button type="submit">Login</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Don't have an account yet?</p>
-      <Link to={"/signup"}> Sign Up</Link>
+          {/* <button type="submit">Login</button> */}
+        </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <br />
+        <p>Don't have an account yet?</p>
+        <Link to={"/signup"}> Sign Up</Link>
+      </main>
     </div>
   );
 }
 
 export default LoginPage;
+
