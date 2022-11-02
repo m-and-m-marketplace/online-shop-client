@@ -58,24 +58,24 @@ function ProductDetails({ products }) {
     // //clear form
   };
 
-  //add to watchlist
-  const handleSubmitWatchlist = (e) => {
-    e.preventDefault();
-    const newProduct = {
-      newItem: details,
-    };
+  // //add to watchlist
+  // const handleSubmitWatchlist = (e) => {
+  //   e.preventDefault();
+  //   const newProduct = {
+  //     newItem: details,
+  //   };
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/products/${id}/add`, newProduct, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        //fetchProductsCB();
-        navigate("/");
-      })
-      .catch((e) => console.log("error adding to watchlist", e));
-    // //clear form
-  };
+  //   axios
+  //     .post(`${process.env.REACT_APP_API_URL}/api/products/${id}/add`, newProduct, {
+  //       headers: { Authorization: `Bearer ${storedToken}` },
+  //     })
+  //     .then((response) => {
+  //       //fetchProductsCB();
+  //       navigate("/");
+  //     })
+  //     .catch((e) => console.log("error adding to watchlist", e));
+  //   // //clear form
+  // };
 
   const getUser = () => {
     axios
@@ -116,12 +116,12 @@ function ProductDetails({ products }) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-          <button type="submit">Buy Now</button>
+          {/* <button type="submit">Buy Now</button> */}
         </form>
-        <form onSubmit={handleSubmitWatchlist}>
+        {/* <form onSubmit={handleSubmitWatchlist}>
           <input type="hidden" value={details} />
           <button type="submit">Add to watchlist</button>
-        </form>
+        </form> */}
         <form onSubmit={handleSubmitCart}>
           <input type="hidden" value={details} />
           <button type="submit">Add to cart</button>
@@ -150,10 +150,10 @@ function ProductDetails({ products }) {
 
           <button type="submit">Buy Now</button>
         </form>
-        <form onSubmit={handleSubmitWatchlist}>
+        {/* <form onSubmit={handleSubmitWatchlist}>
           <input type="hidden" value={details} />
           <button type="submit">Add to watchlist</button>
-        </form>
+        </form> */}
         <form onSubmit={handleSubmitCart}>
           <input type="hidden" value={details} />
           <button type="submit">Add to cart</button>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 function ProfilePage() {
     const [user, setUser] = useState();
+    const [orders, setOrders] = useState();
 
     const storedToken = localStorage.getItem("authToken");
 
@@ -25,6 +26,23 @@ function ProfilePage() {
       }, []);
 
 
+      const getOrders = () => {
+        axios
+          .get(`${process.env.REACT_APP_API_URL}/api/orders`, {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          })
+          .then((response) => {
+           // console.log(response.data.watchlist);
+           console.log(response.data);
+            setOrders(response.data)
+        })
+          .catch((error) => console.log(error));
+      };
+      useEffect(() => {
+        getOrders();
+      }, []);
+
+
   
 
 
@@ -38,17 +56,27 @@ function ProfilePage() {
                     return(
                         <div key={i}>
                         <div >{cart.product && cart.product.title}</div>
-                        <img src={cart.product && cart.product.image_URL} alt=""/>
+                        <img className="image-icon" src={cart.product && cart.product.image_URL} alt=""/>
                         </div>
                     )
                 })}
                 <Link to="/orders/checkout">Checkout</Link>
             </div>
             <br/>
-            <h3>Watchlist:</h3>
+            {/* <h3>Watchlist:</h3>
             <div>{user && user.watchlist.map((item, i) => {
                     return(
                         <div key ={i}>{item.title && item.title}</div>
+                    )
+                })}</div> */}
+                <br></br>
+                <h3>Your Orders:</h3>
+            <div>{orders && orders.map((order, i) => {
+                    return(
+                        <div key ={i}>
+                        <h5>Order Number: <Link to={`/orders/${order && order._id}`}>{order && order._id}</Link></h5>
+                        <br></br>
+                        </div>
                     )
                 })}</div>
         </div>

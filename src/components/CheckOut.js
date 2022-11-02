@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function CheckOut(){
-    const [amount, setAmount] = useState();
+    const [shoppingCart, setShoppingCart] = useState();
     const [user, setUser] = useState();
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate();
@@ -17,6 +17,8 @@ function CheckOut(){
           })
           .then((response) => {
             setUser(response.data)
+            console.log(response.data.shoppingCart);
+            setShoppingCart(response.data.shoppingCart)
         })
           .catch((error) => console.log(error));
       };
@@ -24,38 +26,75 @@ function CheckOut(){
         getUser();
       }, []);
 
+      
 
       const handleFormSubmit = (e) => {
         e.preventDefault();
-        const requestBody = { amount };
+        let newOrder = {
+          items: []
+        }
+
+        for(let i=0; i<shoppingCart.length; i++ ){
+          newOrder.items.push( {product: shoppingCart[i].product, amount: shoppingCart[i].amount}  )
+          console.log(user.shoppingCart[i]); 
+        }
     
         const storedToken = localStorage.getItem("authToken");
         axios
-          .put(`${process.env.REACT_APP_API_URL}/api/orders/checkout`, requestBody, {
+          .post(`${process.env.REACT_APP_API_URL}/api/orders/create`, newOrder, {
             headers: { Authorization: `Bearer ${storedToken}` },
           })
           .then((response) => {
-            navigate(`/checkout`);
-          });
+            emptyCart();
+            navigate(`/account`)
+          })
+          .catch((e) => console.log("error creating order on API", e));
       };
+
+      const emptyCart = () => {
+        const cart = {shoppingCart: []}
+        axios
+        .post(`${process.env.REACT_APP_API_URL}/api/orders/delete`, cart, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          navigate(`/account`)
+        })
+        .catch((e) => console.log("error emptying shopping cart", e));
+      }
+
+       const deleteItem = (itemID) => {
+         const newCart = shoppingCart.filter((item) => {
+           return item._id !== itemID
+         });
+         setShoppingCart(newCart)
+       }
 
 
     return(
         <div>
         <h1>Checkout</h1>
-        {user && user.shoppingCart.map((item) => {
-          return  (
+        
             <div>
-            <p>{item.product.title}</p>
-            <form>
-            <label>Amount:</label>
-            <input type="number" value={item.amount} onChange={(e) => setAmount(e.target.value)}/>
-            <button type="submit">save changes</button>
-            </form>
-            </div>
+            
+            
+            {shoppingCart && shoppingCart.map((item, index) => {
+          return  (
+                <div key={index}>
+                  <div>Product: {item && item.product.title}</div>
+                  <img className="image-icon" src={item.product && item.product.image_URL} alt=""/>
+                  <div>Amount: {item && item.amount}</div>
+                  <button onClick={()=>{deleteItem(item && item._id)}}>Delete</button>
+                </div>
             )
 
         }) }
+        <form onSubmit={handleFormSubmit}>
+            <br></br>
+            <button type="submit">Buy Now</button>
+            </form>
+            </div>
+            
         
         
         </div>

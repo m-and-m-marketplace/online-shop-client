@@ -14,6 +14,7 @@ import EditProduct from "./components/EditProduct";
 import CheckOut from "./components/CheckOut";
 import IsAnon from "./components/IsAnon";
 import IsPrivate from "./components/IsPrivate";
+import OrderDetails from "./components/OrderDetails";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -70,6 +71,10 @@ function App() {
         <Route
           path="/products/:id"
           element={<IsPrivate><ProductDetails products={products} admin={admin}/></IsPrivate>}
+        />
+        <Route
+          path="/orders/:orderId"
+          element={<IsPrivate><OrderDetails products={products} admin={admin}/></IsPrivate>}
         />
         <Route path="/account" element={<IsPrivate><ProfilePage /></IsPrivate>}/>
         <Route path="/orders/checkout" element={<IsPrivate><CheckOut /></IsPrivate>}/>
