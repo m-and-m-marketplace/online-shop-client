@@ -66,14 +66,6 @@ function SignupPage(props) {
           onChange={handleAddress}
         />
 
-        {/* <label>Admin:</label>
-        <input
-          type="checkbox" 
-          name="admin"
-          value={true}
-          onChange={handleAdmin}
-        /> */}
-
         <button type="submit">Sign Up</button>
       </form>
 

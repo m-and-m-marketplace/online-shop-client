@@ -12,6 +12,8 @@ import LoginPage from "./components/LoginPage";
 import CreateProduct from "./components/CreateProduct";
 import EditProduct from "./components/EditProduct";
 import CheckOut from "./components/CheckOut";
+import IsAnon from "./components/IsAnon";
+import IsPrivate from "./components/IsPrivate";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -53,24 +55,24 @@ function App() {
     <div className="App">
       <Navbar admin={admin}></Navbar>
       <Routes>
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
+        <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />
         <Route path="/" element={<HomePage />} />
         <Route
           path="/products/:id/edit"
-          element={<EditProduct fetchProductsCB={getAllProducts} />}
+          element={<IsPrivate><EditProduct fetchProductsCB={getAllProducts} /></IsPrivate>}
         />
-        <Route path="/products" element={<ProductList products={products} />} />
+        <Route path="/products" element={<IsPrivate><ProductList products={products} /></IsPrivate> } />
         <Route
           path="/products/create"
-          element={<CreateProduct fetchProductsCB={getAllProducts}  />}
+          element={<IsPrivate><CreateProduct fetchProductsCB={getAllProducts}  /></IsPrivate>}
         />
         <Route
           path="/products/:id"
-          element={<ProductDetails products={products} admin={admin}/>}
+          element={<IsPrivate><ProductDetails products={products} admin={admin}/></IsPrivate>}
         />
-        <Route path="/account" element={<ProfilePage />}/>
-        <Route path="/orders/checkout" element={<CheckOut />}/>
+        <Route path="/account" element={<IsPrivate><ProfilePage /></IsPrivate>}/>
+        <Route path="/orders/checkout" element={<IsPrivate><CheckOut /></IsPrivate>}/>
       </Routes>
     </div>
   );

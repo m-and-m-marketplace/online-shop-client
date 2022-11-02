@@ -26,7 +26,17 @@ function Navbar({admin}) {
             <button>Add Product</button>
           </NavLink>}
 
+          <NavLink to="/account">
+            <button>{user && user.name}'s Account</button>
+          </NavLink>
+
           <button onClick={logOutUser}>Logout</button>
+
+          <NavLink to="/orders/checkout">
+            <button>Cart</button>
+          </NavLink>
+
+          <br/>
           <span>{user && user.name}</span>
         </>
       )}

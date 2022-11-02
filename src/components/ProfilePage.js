@@ -31,7 +31,6 @@ function ProfilePage() {
     return(
         <div>
             <div>
-                <p>{user && user.name}</p>
             </div>
             <div>
             <h3>Shopping Cart:</h3>
