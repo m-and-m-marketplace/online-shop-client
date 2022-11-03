@@ -6,6 +6,5 @@ To Do:
 -order routes and components (create order from shopping cart) **
 
 
-Views:
--User Account: Shopping Cart?, Watchlist?
+
 
