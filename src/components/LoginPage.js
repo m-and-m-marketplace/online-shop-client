@@ -39,7 +39,7 @@ function LoginPage(props) {
     <div className="LoginPage text-center">
       <main className="form-signin w-100 m-auto">
         <form onSubmit={handleLoginSubmit}>
-          <img className="mb-4" src="../images/navbar-brand.png" alt="navbar-brand" width="220" height="57" />
+          <img className="mb-4" src="./images/navbar-logo.png" alt="navbar-brand" width="50" height="50" />
           <h1 className="h3 mb-3 fw-normal">Please Login</h1>
           <div className="form-floating">
             <input

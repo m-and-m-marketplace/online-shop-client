@@ -3,7 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProductList from "./components/ProductList";
-import Navbar from "./components/Navbar";
+import NavigationSystem from "./components/Navbar";
 import ProductDetails from "./components/ProductDetails";
 import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
@@ -54,7 +54,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar admin={admin}></Navbar>
+      <NavigationSystem admin={admin}></NavigationSystem>
       <Routes>
         <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
         <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />

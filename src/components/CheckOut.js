@@ -81,7 +81,7 @@ function CheckOut(){
             {shoppingCart && shoppingCart.map((item, index) => {
           return  (
                 <div key={index}>
-                  <div>Product: {item && item.product.title}</div>
+                  <div>Product: {item && item.product?.title}</div>
                   <img className="image-icon" src={item.product && item.product.image_URL} alt=""/>
                   <div>Amount: {item && item.amount}</div>
                   <button onClick={()=>{deleteItem(item && item._id)}}>Delete</button>

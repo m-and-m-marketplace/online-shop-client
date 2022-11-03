@@ -19,3 +19,7 @@ code {
 .SignupPage {
   padding: 3% 30%;
 }
+
+.productCard{
+  text-align: left;
+}

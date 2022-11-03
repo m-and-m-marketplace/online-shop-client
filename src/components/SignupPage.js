@@ -44,7 +44,7 @@ function SignupPage(props) {
       <main className="form-signin w-100 m-auto"> 
 
         <form onSubmit={handleSignupSubmit}>
-          <img className="mb-4" src="../images/navbar-brand.png" alt="navbar-brand" width="220" height="57" />
+          <img className="mb-4" src="../images/NavigationSystem-brand.png" alt="NavigationSystem-brand" width="220" height="57" />
           <h1 className="h3 mb-3 fw-normal">Please Sign Up</h1>
           <div className="form-floating">
             <input

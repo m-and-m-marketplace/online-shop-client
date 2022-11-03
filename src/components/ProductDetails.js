@@ -2,6 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function ProductDetails({ products }) {
   const { id } = useParams();
@@ -94,71 +98,87 @@ function ProductDetails({ products }) {
   };
   useEffect(() => {
     getUser();
-  });
+  }, [details]);
 
   if (admin) {
     return (
-      <div>
-        <img src={details.image_URL} alt={details.title} />
-        <h2>{details.title}</h2>
-        <p>{details.description}</p>
-        <p>{details.price}</p>
-        <p>{details.specs}</p>
-        <p>{details.rating}</p>
-        <Link to={`/products/${details._id}/edit`}>Edit this product</Link>
+      <>
+      <p>Products - {details?.title}</p>
+      <Container style={{ paddingTop: '3%', paddingBottom: "13%" }}>
+        <Row>
+        <Col><img className="rounded-3" src={details?.image_URL} alt={details?.title} /></Col>
+        <Col style={{ textAlign: 'left', marginLeft: '4%' }}>
+          <h2>{details?.title}</h2>
+          <p>{details?.description}</p>
+          <p>${details?.price}.00</p>
+          <h6>Specifications</h6>
+          <p>{details?.specs}</p>
+          {/* <p>{details.rating}</p> */}
 
-        <form onSubmit={handleSubmit}>
-          <input type="hidden" value={details} />
-          <label>Amount</label>
-          <input
-            type="number"
-            min={1}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-          {/* <button type="submit">Buy Now</button> */}
-        </form>
-        {/* <form onSubmit={handleSubmitWatchlist}>
-          <input type="hidden" value={details} />
-          <button type="submit">Add to watchlist</button>
-        </form> */}
-        <form onSubmit={handleSubmitCart}>
-          <input type="hidden" value={details} />
-          <button type="submit">Add to cart</button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" value={details} />
+            <label>Amount</label>
+            <input
+              type="number"
+              min={1}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            {/* <button type="submit">Buy Now</button> */}
+          </form>
+          {/* <form onSubmit={handleSubmitWatchlist}>
+            <input type="hidden" value={details} />
+            <button type="submit">Add to watchlist</button>
+          </form> */}
+          <form onSubmit={handleSubmitCart}>
+            <input type="hidden" value={details} />
+            <Button variant="primary" type="submit">Add to cart</Button>
+          </form>
+          <br/>
+          <Link to={`/products/${details?._id}/edit`}>Edit this product</Link>
+        </Col>
+        </Row>
+      </Container>
+      </>
     );
   } else {
     return (
-      <div>
-        <img src={details.image_URL} alt={details.title} />
-        <h2>{details.title}</h2>
-        <p>{details.description}</p>
-        <p>{details.price}</p>
-        <p>{details.specs}</p>
-        <p>{details.rating}</p>
+      <>
+      <p>Products - {details?.title}</p>
+      <Container style={{ paddingTop: '3%', paddingBottom: "13%" }}>
+        <Row>
+        <Col><img className="rounded-3" src={details?.image_URL} alt={details?.title} /></Col>
+        <Col style={{ textAlign: 'left', marginLeft: '4%' }}>
+          <h2>{details?.title}</h2>
+          <p>{details?.description}</p>
+          <p>${details?.price}.00</p>
+          <h6>Specifications</h6>
+          <p>{details?.specs}</p>
+          {/* <p>{details.rating}</p> */}
 
-        <form onSubmit={handleSubmit}>
-          <input type="hidden" value={details} />
-          <label>Amount</label>
-          <input
-            type="number"
-            min={1}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-
-          <button type="submit">Buy Now</button>
-        </form>
-        {/* <form onSubmit={handleSubmitWatchlist}>
-          <input type="hidden" value={details} />
-          <button type="submit">Add to watchlist</button>
-        </form> */}
-        <form onSubmit={handleSubmitCart}>
-          <input type="hidden" value={details} />
-          <button type="submit">Add to cart</button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" value={details} />
+            <label>Amount</label>
+            <input
+              type="number"
+              min={1}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            {/* <button type="submit">Buy Now</button> */}
+          </form>
+          {/* <form onSubmit={handleSubmitWatchlist}>
+            <input type="hidden" value={details} />
+            <button type="submit">Add to watchlist</button>
+          </form> */}
+          <form onSubmit={handleSubmitCart}>
+            <input type="hidden" value={details} />
+            <Button variant="primary" type="submit">Add to cart</Button>
+          </form>
+        </Col>
+        </Row>
+      </Container>
+      </>
     );
   }
 }
