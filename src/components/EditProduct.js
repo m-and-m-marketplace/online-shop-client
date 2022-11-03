@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Button from "react-bootstrap/Button";
 
 function EditProduct({ fetchProductsCB }) {
   const [title, setTitle] = useState("");
@@ -17,7 +20,6 @@ function EditProduct({ fetchProductsCB }) {
   const storedToken = localStorage.getItem("authToken");
 
   useEffect(() => {
-    
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -40,9 +42,13 @@ function EditProduct({ fetchProductsCB }) {
     uploadData.append("image_URL", e.target.files[0]);
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/products/upload-image`, uploadData, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/products/upload-image`,
+        uploadData,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
       .then((response) => {
         setImage_URL(response.data.image_URL);
       })
@@ -82,60 +88,114 @@ function EditProduct({ fetchProductsCB }) {
     <div className="EditproductPage">
       <h3>Edit the product</h3>
 
-      <form onSubmit={handleFormSubmit}>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+      <Form onSubmit={handleFormSubmit}>
+        <Form.Group className="mb-3">
+          <FloatingLabel
+          controlId="floatingInput"
+            label="Title"
+            className="mb-3"
+          >
+            <Form.Control
+              type="text"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </FloatingLabel>
+        </Form.Group>
 
-        <label>Description:</label>
-        <textarea
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <Form.Group className="mb-3">
+          
+          <FloatingLabel
+          controlId="floatingDescription"
+            label="Description"
+            className="mb-3"
+          >
+          <Form.Control
+            as="textarea"
+            rows={3}
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          </FloatingLabel>
+          
+        </Form.Group>
 
-        <label>Price:</label>
-        <input
-          type="number"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
+        <Form.Group className="mb-3">
+        <FloatingLabel
+          controlId="floatingPrice"
+            label="Price"
+            className="mb-3"
+          >
+            <Form.Control
+            type="number"
+            min={1}
+            name="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          </FloatingLabel>
+          
+          
+        </Form.Group>
 
-        <label>Image:</label>
-        <input
-          type="file"
-          name="image_URL"
-          //value={image_URL}
-          onChange={(e) => handleFileUpload(e)}
-        />
+        <Form.Group className="mb-3">
+          
+          <FloatingLabel
+          controlId="floatingSpecs"
+            label="Specs"
+            className="mb-3"
+          >
+          <Form.Control
+            as="textarea"
+            rows={3}
+            name="specs"
+            value={specs}
+            onChange={(e) => setSpecs(e.target.value)}
+          />
+          </FloatingLabel>
+          
+        </Form.Group>
 
-        <label>Specifications:</label>
-        <input
-          type="text"
-          name="specs"
-          value={specs}
-          onChange={(e) => setSpecs(e.target.value)}
-        />
+        <Form.Group className="mb-3">
+        <FloatingLabel
+          controlId="floatingSpecs"
+            label="Rating"
+            className="mb-3"
+          >
+            <Form.Control
+            type="number"
+            min={1}
+            name="rating"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          />
+          </FloatingLabel>
+          
+        </Form.Group>
 
-        <label>Rating:</label>
-        <input
-          type="number"
-          min={0}
-          max={5}
-          name="rating"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-        />
+        <Form.Group>
+          <FloatingLabel
+            controlId="floatingImage"
+            label="Image"
+            className="mb-3 pt-2"
+          >
+            <Form.Control
+              type="file"
+              name="image_URL"
+              onChange={(e) => handleFileUpload(e)}
+              required
+            />
+          </FloatingLabel>
+        </Form.Group>
 
-        <input type="submit" value="Submit" />
-      </form>
+        <Button className="mb-3" variant="primary" type="submit">
+          Submit Changes
+        </Button>
+      </Form>
 
-      <button onClick={deleteProduct}>Delete product</button>
+      <Button variant="danger" onClick={deleteProduct}>Delete product</Button>
     </div>
   );
 }

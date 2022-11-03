@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function ProductDetails({ products }) {
   const { id } = useParams();
@@ -62,25 +64,6 @@ function ProductDetails({ products }) {
     // //clear form
   };
 
-  // //add to watchlist
-  // const handleSubmitWatchlist = (e) => {
-  //   e.preventDefault();
-  //   const newProduct = {
-  //     newItem: details,
-  //   };
-
-  //   axios
-  //     .post(`${process.env.REACT_APP_API_URL}/api/products/${id}/add`, newProduct, {
-  //       headers: { Authorization: `Bearer ${storedToken}` },
-  //     })
-  //     .then((response) => {
-  //       //fetchProductsCB();
-  //       navigate("/");
-  //     })
-  //     .catch((e) => console.log("error adding to watchlist", e));
-  //   // //clear form
-  // };
-
   const getUser = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/account`, {
@@ -92,7 +75,6 @@ function ProductDetails({ products }) {
         } else {
           setAdmin(false);
         }
-        console.log(admin);
       })
       .catch((error) => console.log(error));
   };
@@ -115,27 +97,35 @@ function ProductDetails({ products }) {
           <p>{details?.specs}</p>
           {/* <p>{details.rating}</p> */}
 
-          <form onSubmit={handleSubmit}>
-            <input type="hidden" value={details} />
-            <label>Amount</label>
-            <input
+          <Form className="formAmount" onSubmit={handleSubmit}>
+          <Form.Group>
+            
+            <Form.Control type="hidden" value={details} />
+            <FloatingLabel
+            controlId="floatingAmount"
+            label="Amount"
+            className="mb-3"
+            >
+           
+            <Form.Control
               type="number"
               min={1}
               value={amount}
+              className="formAmount"
               onChange={(e) => setAmount(e.target.value)}
             />
-            {/* <button type="submit">Buy Now</button> */}
-          </form>
-          {/* <form onSubmit={handleSubmitWatchlist}>
-            <input type="hidden" value={details} />
-            <button type="submit">Add to watchlist</button>
-          </form> */}
-          <form onSubmit={handleSubmitCart}>
+            </FloatingLabel>
+          </Form.Group>
+            
+            
+          </Form>
+          
+          <Form onSubmit={handleSubmitCart}>
             <input type="hidden" value={details} />
             <Button variant="primary" type="submit">Add to cart</Button>
-          </form>
+          </Form>
           <br/>
-          <Link to={`/products/${details?._id}/edit`}>Edit this product</Link>
+          <Button variant="secondary" href={`/products/${details?._id}/edit`}>Edit this product</Button>
         </Col>
         </Row>
       </Container>
@@ -173,7 +163,7 @@ function ProductDetails({ products }) {
           </form> */}
           <form onSubmit={handleSubmitCart}>
             <input type="hidden" value={details} />
-            <Button variant="primary" type="submit">Add to cart</Button>
+            <Button  variant="primary" type="submit">Add to cart</Button>
           </form>
         </Col>
         </Row>

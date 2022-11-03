@@ -2,6 +2,9 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Button from "react-bootstrap/Button";
 
 function LoginPage(props) {
   const [email, setEmail] = useState("");
@@ -38,48 +41,68 @@ function LoginPage(props) {
   return (
     <div className="LoginPage text-center">
       <main className="form-signin w-100 m-auto">
-        <form onSubmit={handleLoginSubmit}>
-          <img className="mb-4" src="./images/navbar-logo.png" alt="logo" width="50" height="50" />
+        <Form onSubmit={handleLoginSubmit}>
+          <img
+            className="mb-4"
+            src="./images/navbar-logo.png"
+            alt="logo"
+            width="50"
+            height="50"
+          />
           <h1 className="h3 mb-3 fw-normal">Please Login</h1>
-          <div className="form-floating">
-            <input
-              required
-              type="email"
-              className="form-control"
-              id="floatingInput"
-              placeholder="name@example.com"
-              name="email"
-              value={email}
-              onChange={handleEmail}
-            />
-            <label htmlFor="floatingInput">Email address</label>
-          </div>
-          <div className="form-floating">
-            <input
-              required
-              type="password"
-              className="form-control"
-              id="floatingPassword"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={handlePassword}
-            />
-            <label htmlFor="floatingPassword">Password</label>
-          </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit">
-          Login
-          </button>
 
-        </form>
+          <Form.Group>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Email Address"
+              className="mb-3"
+            >
+              <Form.Control
+                required
+                type="email"
+                className="form-control mb-3"
+                id="floatingInput"
+                placeholder="name@example.com"
+                name="email"
+                value={email}
+                onChange={handleEmail}
+              />
+            </FloatingLabel>
+          </Form.Group>
+
+          <Form.Group>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Password"
+              className="mb-3"
+            >
+              <Form.Control
+                required
+                type="password"
+                className="form-control mb-3"
+                id="floatingPassword"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={handlePassword}
+              />
+            </FloatingLabel>
+          </Form.Group>
+
+          <Button className="mb-3 btn-lg w-100" variant="primary" type="submit">
+            Login
+          </Button>
+        </Form>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <br />
         <p>Don't have an account yet?</p>
-        <Link to={"/signup"}> Sign Up</Link>
+        <Link className="text-decoration-none" to={"/signup"}>
+          {" "}
+          Sign Up
+        </Link>
       </main>
     </div>
   );
 }
 
 export default LoginPage;
-

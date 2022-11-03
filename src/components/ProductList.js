@@ -20,8 +20,8 @@ function ProductList({ products }) {
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>$ {product.price}.00</Card.Text>
                     <Card.Text>{product.description}</Card.Text>
-                    <Card.Text><Button variant="primary" href="">Add to cart</Button></Card.Text>
-                    <Card.Text><Card.Link href={`/products/${product._id}`}>More details</Card.Link></Card.Text>
+                    <Card.Text><Button variant="primary" href={`/products/${product._id}`}>More Details</Button></Card.Text>
+                    {/* <Card.Text><Card.Link className="text-decoration-none" href={`/products/${product._id}`}>More details</Card.Link></Card.Text> */}
                   </Card.Body>
                 </Card>
               </Col>

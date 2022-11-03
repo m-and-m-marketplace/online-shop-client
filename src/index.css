@@ -23,3 +23,15 @@ code {
 .productCard{
   text-align: left;
 }
+
+.addProduct {
+  padding: 3% 30%;
+}
+
+.formAmount {
+  width: 30%;
+}
+
+.EditproductPage {
+  padding: 3% 30%;
+}
