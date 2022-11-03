@@ -58,7 +58,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
         <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage products={products} />} />
         <Route
           path="/products/:id/edit"
           element={<IsPrivate><EditProduct fetchProductsCB={getAllProducts} /></IsPrivate>}
