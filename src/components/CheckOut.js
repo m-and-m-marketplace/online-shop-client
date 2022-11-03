@@ -2,23 +2,25 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = "http://localhost:5006";
+
 function CheckOut(){
-    const [shoppingCart, setShoppingCart] = useState();
-    const [user, setUser] = useState();
+    const [shoppingCart, setCart] = useState();
+    // const [user, setUser] = useState();
+    // const [amount, setAmount] = useState();
+
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate();
 
-    const getUser = () => {
-        
-    
+    const getUser = () => { 
         axios
-          .get(`${process.env.REACT_APP_API_URL}/api/account`, {
+          .get(`${API_URL}/api/account`, {
             headers: { Authorization: `Bearer ${storedToken}` },
           })
           .then((response) => {
-            setUser(response.data)
-            console.log(response.data.shoppingCart);
-            setShoppingCart(response.data.shoppingCart)
+            // setUser(response.data)
+            setCart(response.data.shoppingCart)
+            // setAmount(response.data.shoppingCart.amount)
         })
           .catch((error) => console.log(error));
       };
@@ -26,75 +28,71 @@ function CheckOut(){
         getUser();
       }, []);
 
-      
-
-      const handleFormSubmit = (e) => {
-        e.preventDefault();
-        let newOrder = {
-          items: []
+      const handleDecrement = (object) => {
+        // e.preventDefault();
+        setCart(cart => 
+          cart.map((item) => 
+            object._id === item._id ? {...item, amount: item.amount - (item.amount > 1 ? 1:0) } : item
+          )
+        )
+        console.log(shoppingCart)
+        const infoUpdate = {
+          newCart: shoppingCart
+        //   objectId: shoppingCart._id
         }
-
-        for(let i=0; i<shoppingCart.length; i++ ){
-          newOrder.items.push( {product: shoppingCart[i].product, amount: shoppingCart[i].amount}  )
-          console.log(user.shoppingCart[i]); 
-        }
-    
-        const storedToken = localStorage.getItem("authToken");
+        
         axios
-          .post(`${process.env.REACT_APP_API_URL}/api/orders/create`, newOrder, {
+          .put(`${API_URL}/api/orders/checkout`, infoUpdate, {
             headers: { Authorization: `Bearer ${storedToken}` },
           })
           .then((response) => {
-            emptyCart();
-            navigate(`/account`)
-          })
-          .catch((e) => console.log("error creating order on API", e));
-      };
-
-      const emptyCart = () => {
-        const cart = {shoppingCart: []}
-        axios
-        .post(`${process.env.REACT_APP_API_URL}/api/orders/delete`, cart, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        })
-        .then((response) => {
-          navigate(`/account`)
-        })
-        .catch((e) => console.log("error emptying shopping cart", e));
+            navigate(`/checkout`);
+          }).catch(err => console.log(err))
+      }
+      const handleIncrement = (objectId) => {
+        // e.preventDefault();
+        setCart(cart => 
+          cart.map((item) => 
+            objectId === item._id ? {...item, amount: item.amount + 1 } : item
+          )
+        )
       }
 
-       const deleteItem = (itemID) => {
-         const newCart = shoppingCart.filter((item) => {
-           return item._id !== itemID
-         });
-         setShoppingCart(newCart)
-       }
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        // const requestBody = { amount };
+    
+        axios
+          .put(`${API_URL}/api/orders/checkout`, shoppingCart, {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          })
+          .then((response) => {
+            navigate(`/checkout`);
+          });
+      };
 
 
     return(
         <div>
         <h1>Checkout</h1>
-        
-            <div>
-            
-            
-            {shoppingCart && shoppingCart.map((item, index) => {
+        {shoppingCart?.map((item) => {
           return  (
-                <div key={index}>
-                  <div>Product: {item && item.product?.title}</div>
-                  <img className="image-icon" src={item.product && item.product.image_URL} alt=""/>
-                  <div>Amount: {item && item.amount}</div>
-                  <button onClick={()=>{deleteItem(item && item._id)}}>Delete</button>
-                </div>
+            <div key={item._id}>
+            <p>{item.product.title}</p>
+            <form onSubmit={handleSubmit}>
+
+            <input type="hidden" value={shoppingCart} />
+            <button type="button" onClick={() => handleDecrement(item)}>-</button>
+            |       {item.amount}       |
+            <button type="button" onClick={() => handleIncrement(item._id)}>+</button>
+            
+            {/* <input type="number" value={item.amount} onChange={(e) => handleUpdate(e)}/> */}
+            <button type="submit">save changes</button>
+            </form>
+            </div>
             )
 
         }) }
-        <form onSubmit={handleFormSubmit}>
-            <br></br>
-            <button type="submit">Buy Now</button>
-            </form>
-            </div>
-            
         
         
         </div>
