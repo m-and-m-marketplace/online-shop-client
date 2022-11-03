@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 function OrderDetails() {
   const [order, setOrder] = useState(null);
   const { orderId } = useParams();
+  let totalOrderPrice = 0
 
   const getOrder = () => {
     const storedToken = localStorage.getItem("authToken");
@@ -31,17 +32,18 @@ function OrderDetails() {
       
 
       {order && order.items.map((item) => {
+        totalOrderPrice += item.product?.price * item.amount;
         return (
             <div>
             <img className="image-icon" src={item.product && item.product.image_URL} alt=""/>
             <div>Product: {item.product && item.product.title}</div>
             <div>Amount: {item && item.amount}</div>
             <div>Price per Item: {item && item.product.price}€</div>
-            <div>Total Cost: {item && item.product.price*item.amount}€</div>
             <br></br>
             </div>
         )
       })}
+      <span>Total Cost: {totalOrderPrice}€</span>
       <p>Date Ordered: {order && order.createdAt}</p>
       <Link to="/account">
         <button>Back to profile</button>

@@ -14,8 +14,10 @@ function EditProduct({ fetchProductsCB }) {
 
   const navigate = useNavigate();
 
+  const storedToken = localStorage.getItem("authToken");
+
   useEffect(() => {
-    const storedToken = localStorage.getItem("authToken");
+    
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -31,6 +33,21 @@ function EditProduct({ fetchProductsCB }) {
       })
       .catch((error) => console.log(error));
   }, [id]);
+
+  const handleFileUpload = (e) => {
+    const uploadData = new FormData();
+
+    uploadData.append("image_URL", e.target.files[0]);
+
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/api/products/upload-image`, uploadData, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setImage_URL(response.data.image_URL);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -91,10 +108,10 @@ function EditProduct({ fetchProductsCB }) {
 
         <label>Image:</label>
         <input
-          type="text"
+          type="file"
           name="image_URL"
-          value={image_URL}
-          onChange={(e) => setImage_URL(e.target.value)}
+          //value={image_URL}
+          onChange={(e) => handleFileUpload(e)}
         />
 
         <label>Specifications:</label>

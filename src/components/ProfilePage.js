@@ -1,10 +1,12 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
     const [user, setUser] = useState();
     const [orders, setOrders] = useState();
+    const navigate = useNavigate();
 
     const storedToken = localStorage.getItem("authToken");
 
@@ -42,7 +44,18 @@ function ProfilePage() {
         getOrders();
       }, []);
 
-
+      const emptyCart = () => {
+        const cart = {shoppingCart: []}
+        axios
+        .post(`${process.env.REACT_APP_API_URL}/api/orders/delete`, cart, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+            getUser();
+         // navigate(`/account`)
+        })
+        .catch((e) => console.log("error emptying shopping cart", e));
+      }
   
 
 
@@ -60,7 +73,9 @@ function ProfilePage() {
                         </div>
                     )
                 })}
-                <Link to="/orders/checkout">Checkout</Link>
+                <button><Link to="/orders/checkout">Checkout</Link></button>
+                <br></br>
+                <button onClick={emptyCart}>Clear Shopping Cart</button>
             </div>
             <br/>
             {/* <h3>Watchlist:</h3>
