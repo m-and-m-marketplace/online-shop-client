@@ -39,7 +39,7 @@ function LoginPage(props) {
     <div className="LoginPage text-center">
       <main className="form-signin w-100 m-auto">
         <form onSubmit={handleLoginSubmit}>
-          <img className="mb-4" src="./images/navbar-logo.png" alt="navbar-brand" width="50" height="50" />
+          <img className="mb-4" src="./images/navbar-logo.png" alt="logo" width="50" height="50" />
           <h1 className="h3 mb-3 fw-normal">Please Login</h1>
           <div className="form-floating">
             <input
@@ -52,7 +52,7 @@ function LoginPage(props) {
               value={email}
               onChange={handleEmail}
             />
-            <label for="floatingInput">Email address</label>
+            <label htmlFor="floatingInput">Email address</label>
           </div>
           <div className="form-floating">
             <input
@@ -65,29 +65,12 @@ function LoginPage(props) {
               value={password}
               onChange={handlePassword}
             />
-            <label for="floatingPassword">Password</label>
+            <label htmlFor="floatingPassword">Password</label>
           </div>
           <button className="w-100 btn btn-lg btn-primary" type="submit">
           Login
           </button>
 
-          {/* <label></label>
-          <input
-            // type="email"
-            // name="email"
-            value={email}
-            onChange={handleEmail}
-          /> */}
-
-          {/* <label>Password:</label>
-          <input
-            // type="password"
-            name="password"
-            value={password}
-            onChange={handlePassword}
-          /> */}
-
-          {/* <button type="submit">Login</button> */}
         </form>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <br />

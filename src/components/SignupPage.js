@@ -44,7 +44,7 @@ function SignupPage(props) {
       <main className="form-signin w-100 m-auto"> 
 
         <form onSubmit={handleSignupSubmit}>
-          <img className="mb-4" src="../images/NavigationSystem-brand.png" alt="NavigationSystem-brand" width="220" height="57" />
+          <img className="mb-4" src="../images/navbar-logo.png" alt="logo" width="50" height="50" />
           <h1 className="h3 mb-3 fw-normal">Please Sign Up</h1>
           <div className="form-floating">
             <input
@@ -70,19 +70,9 @@ function SignupPage(props) {
               value={email}
               onChange={handleEmail}
             />
-            <label for="floatingInput">Email address</label>
+            <label htmlFor="floatingInput">Email address</label>
           </div>
-          {/* <label>Email:</label>
-          <input type="email" name="email" value={email} onChange={handleEmail} /> */}
-          {/* <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePassword}
-          /> */}
-          {/* <label>Name:</label>
-          <input type="text" name="name" value={name} onChange={handleName} /> */}
+
           <div className="form-floating">
             <input
               required
@@ -94,8 +84,9 @@ function SignupPage(props) {
               value={address}
               onChange={handleAddress}
             />
-            <label for="floatingAddress">Address</label>
+            <label htmlFor="floatingAddress">Address</label>
           </div>
+
           <div className="form-floating">
             <input
               required
@@ -107,17 +98,9 @@ function SignupPage(props) {
               value={password}
               onChange={handlePassword}
             />
-            <label for="floatingPassword">Password</label>
+            <label htmlFor="floatingPassword">Password</label>
           </div>
-          {/* <label>Address:</label>
-          <input
-            type="text"
-            name="address"
-            value={address}
-            onChange={handleAddress}
-          /> */}
 
-          {/* <button type="submit">Sign Up</button> */}
           <button className="w-100 btn btn-lg btn-primary" type="submit">
           Sign Up
           </button>
