@@ -8,9 +8,9 @@ This is the frontend of our online shop. We used create-react-app to create the 
 To run this app on your computer, start by forking and cloning this repo and enter the following commands:
 
 ```
-$ cd online-shop-server
+$ cd online-shop-client
 $ npm install
-$ npm run dev
+$ npm start
 ```
 
 ## Demo
