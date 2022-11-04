@@ -13,6 +13,7 @@ function CheckOut() {
   const storedToken = localStorage.getItem("authToken");
   const navigate = useNavigate();
   let totalCartPrice = 0;
+
   const getUser = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/account`, {
@@ -120,7 +121,7 @@ function CheckOut() {
 
   return (
     <div>
-      <h1>Checkout</h1>
+      <h2 style={{ paddingTop: '3%' }}>Checkout</h2>
       <Row
         xs={1}
         md={2}
@@ -145,22 +146,13 @@ function CheckOut() {
                     alt=""
                   />
                   <Card.Body>
-                    <Card.Title>
-                      Product: {item && item.product?.title}
-                    </Card.Title>
+                    <Card.Title>{item && item.product?.title}</Card.Title>
+                    <Card.Text>Unit price: ${item && item.product?.price}.00</Card.Text>
                     <Card.Text>
-                      Price per item: {item && item.product?.price}€
-                    </Card.Text>
-                    <Card.Text>Amount: {item && item.amount}</Card.Text>
-                    <Card.Text>
-                      <Button
-                        className="m-3"
-                        variant="secondary"
-                        type="button"
-                        onClick={() => handleDecrement(item._id)}
-                      >
+                      <Button className="m-3" variant="secondary" type="button" onClick={() => handleDecrement(item._id)}>
                         -
                       </Button>
+                      {item && item.amount}
                       <Button
                         className="m-3"
                         variant="secondary"
@@ -187,10 +179,9 @@ function CheckOut() {
             );
           })}
       </Row>
-      <span>Grand Total: {totalCartPrice}€</span>
+      <h6>Grand Total: ${totalCartPrice}.00</h6>
       <form onSubmit={handleFormSubmit}>
-        <br></br>
-        <Button className="btn-lg m-3" variant="success" type="submit">
+        <Button className="btn-lg m-3" type="submit">
           Buy Now
         </Button>
       </form>
