@@ -10,7 +10,7 @@ function HomePage({products}) {
             <h1 style={{ paddingTop: '2%' }}>Highlights</h1>
             <Row xs={1} md={2} lg={4} className="g-4" style={{ paddingTop: '3%', paddingLeft: '5%', paddingRight: '5%', paddingBottom: "3%"}} >
         {products &&
-          products.map((product) => {
+          products.slice(0,4).map((product) => {
             return (
               <Col key={product._id}>
                 <Card className="productCard">
@@ -19,8 +19,8 @@ function HomePage({products}) {
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>$ {product.price}.00</Card.Text>
                     <Card.Text>{product.description}</Card.Text>
-                    <Card.Text><Button variant="primary" href="">Add to cart</Button></Card.Text>
-                    <Card.Text><Card.Link href={`/products/${product._id}`}>More details</Card.Link></Card.Text>
+                    {/* <Card.Text><Button variant="primary" href="">Add to cart</Button></Card.Text> */}
+                    <Card.Text><Button href={`/products/${product._id}`}>More details</Button></Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
