@@ -44,10 +44,9 @@ function LoginPage(props) {
         <Form onSubmit={handleLoginSubmit}>
           <img
             className="mb-4"
-            src="./images/navbar-logo.png"
+            src="../../images/logo2.png"
             alt="logo"
-            width="50"
-            height="50"
+            width="66px"
           />
           <h1 className="h3 mb-3 fw-normal">Please Login</h1>
 

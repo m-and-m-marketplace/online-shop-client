@@ -11,9 +11,9 @@ function NavigationSystem({admin}) {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext); // <== ADD
 
   return (
-    <Navbar style={{ paddingLeft: '1%', lineHeight: '56px' }} bg="light" expand="lg">
+    <Navbar style={{ paddingLeft: '3%', lineHeight: '56px' }} bg="light" expand="lg">
       {/* <Container> */}
-      <Navbar.Brand><img className="" src="../../images/navbar-logo.png" alt="logo"/>boolean balloons</Navbar.Brand>
+      <Navbar.Brand><img className="" src="../../images/logo2.png" alt="logo" width='33px'/>boolean balloons</Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav className="me-auto justify-content-end">
@@ -28,11 +28,11 @@ function NavigationSystem({admin}) {
                 <Nav.Link href="/products/create">Add New Product</Nav.Link>}
 
           <Nav>
-          <Nav.Link href="/account"><img className="" src="../../images/profile.png" alt="profile"/>
+          <Nav.Link href="/account"><img className="" src="../../images/profile2.png" alt="profile" width='16px'/>
           </Nav.Link>
 
 
-          <Nav.Link href="/orders/checkout"><img className="" src="../../images/cart.png" alt="cart"/>
+          <Nav.Link href="/orders/checkout"><img className="" src="../../images/cart2.png" alt="cart" width='16px'/>
           </Nav.Link>
           </Nav>
           <Nav.Link onClick={logOutUser}><img className="" src="../../images/logout-vector.png" alt="logout" width="16px"/></Nav.Link>
